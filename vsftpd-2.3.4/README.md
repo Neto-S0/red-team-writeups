@@ -15,7 +15,7 @@ Exploit a known vulnerability in vsftpd 2.3.4 in a controlled lab environment.
 A scan was performed using Nmap:
 
 nmap -sV <TARGET_IP>
-```
+```bash
 nmap -sV <TARGET_IP>
 ```
 Port 21 was found open running FTP service (vsftpd 2.3.4).
