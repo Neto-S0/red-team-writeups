@@ -1,8 +1,7 @@
----
-## 📂 Labs
+
 
 ### vsftpd 2.3.4 Exploitation
-
+---
 #### 🎯 Objective
 Exploit a known vulnerability in vsftpd 2.3.4 in a controlled lab environment.
 
