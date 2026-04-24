@@ -1,9 +1,4 @@
-# Red Team Write-ups
-
-This repository contains my studies, notes, and write-ups from penetration testing and Red Team labs.
-
 ---
-
 ## 📂 Labs
 
 ### vsftpd 2.3.4 Exploitation
