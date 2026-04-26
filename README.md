@@ -21,5 +21,5 @@ Este repositório contém meus estudos, anotações e write-ups de laboratórios
 ## 📂 Labs
 
 - [vsftpd 2.3.4 Exploitation](./vsftpd-2.3.4)
-- .[SQL Injection (DVWA)](./dvwa-sql-injection)
+- [SQL Injection (DVWA)](./dvwa-sql-injection)
 
